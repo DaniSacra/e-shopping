@@ -3,7 +3,7 @@ module Admin::V1
     before_action :load_category, only: [:update, :destroy]
 
     def index
-      @categories = Category.all
+      @categories = load_categories
     end
 
     def create
@@ -29,10 +29,13 @@ module Admin::V1
       @category = Category.find(params[:id])
     end
 
-    def category_params
-      return unless params.key?(:category)
+    def load_categories
+      Category.all
+    end
 
-      params.require(:category).permit(:name)
+    def category_params
+      return {} unless params.has_key?(:category)
+      params.require(:category).permit(:id, :name)
     end
 
     def save_category!
