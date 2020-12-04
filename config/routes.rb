@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       resources :products
       resources :system_requirements
       resources :users
+      resources :licenses
     end
   end
 
